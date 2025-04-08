@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h1>Hi {{name}}, here is your todo list</h1>
+
+<form method="post" action="#" class="my-4">
+    <h2><b>Add Item</b></h2>
+    <div class="input-group">
+        <input type="text" name="task" class="form-control bg-dark text-light border-secondary" placeholder="New task...">
+        <button class="btn btn-success" type="submit" name="bruh">Add</button>
+    </div>
+</form>
+
+{% for task, id in todo %}
+<div class="d-flex align-items-center gap-3 my-2">
+    <h4 class="m-0">{{ task }}</h4>
+    <form action="/api/delete" method="POST" class="m-0">
+        <input type="hidden" name="task_id" value="{{ id }}">
+        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+    </form>
+</div>
+{% endfor %}
+{% endblock %}

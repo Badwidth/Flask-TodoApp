@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h1> SIGN UP </h1>
+<form action="#" method="post" class="mt-3">
+    <div class="mb-3">
+        <label for="un" class="form-label">Username:</label>
+        <input type="text" name="un" id="un" class="form-control bg-dark text-light border-secondary">
+    </div>
+    <div class="mb-3">
+        <label for="pw" class="form-label">Password:</label>
+        <input type="text" name="pw" id="pw" class="form-control bg-dark text-light border-secondary">
+    </div>
+    <input type="submit" class="btn btn-primary" value="Sign Up">
+</form>
+{% endblock %}
