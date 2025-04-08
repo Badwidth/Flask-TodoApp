@@ -1,20 +1,21 @@
 import sqlite3
+import os
 
-con =  sqlite3.connect("tododb.db")
-cursor = con.cursor()
+def setup_db():
+    if not os.path.exists("tododb.db"):
+        con =  sqlite3.connect("tododb.db")
+        cursor = con.cursor()
+        cursor.execute('''CREATE TABLE users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT,
+                password TEXT )''')
 
-
-cursor.execute('''CREATE TABLE users (
-               id INTEGER PRIMARY KEY AUTOINCREMENT,
-               username TEXT,
-               password TEXT )''')
-
-cursor.execute('''CREATE TABLE list (
-               id INTEGER PRIMARY KEY AUTOINCREMENT,
-               user_id INTEGER,
-               task TEXT,
-               FOREIGN KEY (user_id) REFERENCES users(id)
-               )''') 
+        cursor.execute('''CREATE TABLE list (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                task TEXT,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+                )''') 
 
 
 class Db :

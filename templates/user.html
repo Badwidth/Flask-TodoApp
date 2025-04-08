@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
 {% block body %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    {% for msg in messages %}
+        <p>{{msg}}</p>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+
 <h1>Hi {{name}}, here is your todo list</h1>
 
 <form method="post" action="#" class="my-4">
@@ -11,9 +19,10 @@
     </div>
 </form>
 
+
 {% for task, id in todo %}
 <div class="d-flex align-items-center gap-3 my-2">
-    <h4 class="m-0">{{ task }}</h4>
+    <h4 class="m-0">{{loop.index}}) {{ task }}</h4>
     <form action="/api/delete" method="POST" class="m-0">
         <input type="hidden" name="task_id" value="{{ id }}">
         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
