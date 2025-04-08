@@ -17,6 +17,7 @@ def home():
     else:
         pass
 
+#signup
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "GET":
