@@ -1,10 +1,12 @@
 from flask import Flask, redirect, render_template, session, url_for, request, flash
 from database import Db, setup_db
+from api import api
 
 
 setup_db()
 app = Flask(__name__)
 app.secret_key = "penguins are great"
+app.register_blueprint(api, url_prefix="/api")
 
 @app.route("/")
 def root():
@@ -39,8 +41,6 @@ def signup():
         
 
 
-
-
 @app.route("/login", methods={"GET", "POST"})
 def login():
     if request.method == "GET":
@@ -67,7 +67,6 @@ def login():
         
         
 
-
 @app.route("/logout")
 def logout():
     session.clear()
@@ -85,17 +84,10 @@ def user():
             return redirect(url_for("login"))
         else:
             return render_template("user.html", name = session["username"], todo = Db.getToDoList(session["db_id"]))
-    else:
-        task = request.form["task"]
-        Db.addTask(task, session["db_id"])
-        return redirect(url_for("user"))
 
-@app.route("/api/delete", methods=["POST", "GET"])
-def api_removeitem():
-    if request.method == "POST":
-        task_id = request.form["task_id"]
-        Db.removeTask(task_id)
-        return redirect(url_for("user"))
+        
+
+
 
 if __name__ == "__main__":
     app.run(debug=True )
